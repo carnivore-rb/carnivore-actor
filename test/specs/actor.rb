@@ -1,21 +1,6 @@
 require 'minitest/autorun'
 require 'carnivore-actor'
 
-# dummy store that should never be used for anything real
-class MessageStore
-  class << self
-
-    def init
-      @messages = []
-    end
-
-    def messages
-      @messages
-    end
-
-  end
-end
-
 describe 'Carnivore::Source::Actor' do
 
   describe 'Building an Actor based source' do
@@ -24,7 +9,7 @@ describe 'Carnivore::Source::Actor' do
       Carnivore::Source.build(:type => :actor, :args => {:name => :actor_source})
       t = Thread.new{ Carnivore.start! }
       source_wait
-      Celluloid::Actor[:actor_source].wont_be_nil
+      Carnivore::Supervisor.supervisor[:actor_source].wont_be_nil
       t.terminate
     end
 
@@ -48,11 +33,11 @@ describe 'Carnivore::Source::Actor' do
 
     describe 'message transmissions' do
       it 'should accept message transmits' do
-        Celluloid::Actor[:actor_source].transmit('test message')
+        Carnivore::Supervisor.supervisor[:actor_source].transmit('test message')
       end
 
       it 'should receive messages' do
-        Celluloid::Actor[:actor_source].transmit('test message 2')
+        Carnivore::Supervisor.supervisor[:actor_source].transmit('test message 2')
         source_wait
         MessageStore.messages.must_include 'test message 2'
       end
