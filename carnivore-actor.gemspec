@@ -9,6 +9,6 @@ Gem::Specification.new do |s|
   s.homepage = 'https://github.com/carnivore-rb/carnivore-actor'
   s.description = 'Carnivore actor source'
   s.require_path = 'lib'
-  s.add_dependency 'carnivore', '>= 0.1.8'
+  s.add_dependency 'carnivore', '> 0.1.10'
   s.files = Dir['**/*']
 end
