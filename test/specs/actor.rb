@@ -38,7 +38,7 @@ describe 'Carnivore::Source::Actor' do
 
       it 'should receive messages' do
         Carnivore::Supervisor.supervisor[:actor_source].transmit('test message 2')
-        source_wait
+        source_wait{ MessageStore.messages.include?('test message 2') }
         MessageStore.messages.must_include 'test message 2'
       end
     end
