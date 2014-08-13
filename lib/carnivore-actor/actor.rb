@@ -25,10 +25,17 @@ module Carnivore
       #
       # @param payload [Object]
       # @return [TrueClass]
+      # @note if `:remote_name` exists in arguments, transmission
+      #   is made to "remote" source instead of self (jackal hack)
       def transmit(payload, *args)
-        @messages << payload
-        signal(:available_messages)
-        true
+        if(arguments[:source_name])
+          Carnivore::Supervisor.supervisor[arguments[:remote_name]].transmit(payload)
+          true
+        else
+          @messages << payload
+          signal(:available_messages)
+          true
+        end
       end
 
       # Get current messages and clear store
