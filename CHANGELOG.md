@@ -1,3 +1,6 @@
+# v0.1.4
+* Allow specifying name for transmission
+
 # v0.1.2
 * Update tests
 * Fill out docs
