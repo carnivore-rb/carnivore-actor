@@ -28,7 +28,7 @@ module Carnivore
       # @note if `:remote_name` exists in arguments, transmission
       #   is made to "remote" source instead of self (jackal hack)
       def transmit(payload, *args)
-        if(arguments[:source_name])
+        if(arguments[:remote_name])
           Carnivore::Supervisor.supervisor[arguments[:remote_name]].transmit(payload)
           true
         else
