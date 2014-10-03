@@ -1,3 +1,6 @@
+# v0.1.6
+* Fix argument key check
+
 # v0.1.4
 * Allow specifying name for transmission
 
