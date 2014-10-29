@@ -1,3 +1,6 @@
+# v0.1.8
+* Dump to JSON on transmit and load from JSON on receive
+
 # v0.1.6
 * Fix argument key check
 
