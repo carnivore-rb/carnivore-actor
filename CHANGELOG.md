@@ -1,3 +1,6 @@
+# v0.1.10
+* Ensure data is loaded prior to conversion
+
 # v0.1.8
 * Dump to JSON on transmit and load from JSON on receive
 
