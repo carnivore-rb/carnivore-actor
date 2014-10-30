@@ -29,9 +29,7 @@ module Carnivore
       #   is made to "remote" source instead of self (jackal hack)
       def transmit(payload, *args)
         if(arguments[:remote_name])
-          Carnivore::Supervisor.supervisor[arguments[:remote_name]].transmit(
-            MultiJson.dump(payload)
-          )
+          Carnivore::Supervisor.supervisor[arguments[:remote_name]].transmit(payload)
           true
         else
           @messages << MultiJson.dump(payload)
