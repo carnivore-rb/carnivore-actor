@@ -1,6 +1,6 @@
 module Carnivore
   module Actor
     # Current version of library
-    VERSION = Gem::Version.new('0.1.12')
+    VERSION = Gem::Version.new('0.1.13')
   end
 end
