@@ -1,3 +1,6 @@
+# v0.1.12
+* On remote only perform single dump
+
 # v0.1.10
 * Ensure data is loaded prior to conversion
 
