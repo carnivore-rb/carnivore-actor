@@ -45,7 +45,8 @@ module Carnivore
         msgs = @messages.dup
         @messages.clear
         msgs.map do |s|
-          MultiJson.load(s).to_smash
+          s = MultiJson.load(s)
+          s.respond_to?(:to_smash) ? s.to_smash : s
         end
       end
     end
