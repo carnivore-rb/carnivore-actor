@@ -10,6 +10,6 @@ Gem::Specification.new do |s|
   s.description = 'Carnivore actor source'
   s.license = 'Apache 2.0'
   s.require_path = 'lib'
-  s.add_dependency 'carnivore', '> 0.1.10'
-  s.files = Dir['**/*']
+  s.add_dependency 'carnivore', '> 0.1.10', '< 2.0'
+  s.files = Dir['lib/**/*'] + %w(carnivore-actor.gemspec README.md CHANGELOG.md)
 end
