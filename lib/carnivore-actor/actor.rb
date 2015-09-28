@@ -5,11 +5,12 @@ module Carnivore
     # Actor based Carnivore source
     class Actor < Source
 
+      option :cache_signals
+
       # Initialize source storage
       #
       # @return [TrueClass]
       def setup(*args)
-        @messages = []
         true
       end
 
@@ -17,8 +18,13 @@ module Carnivore
       #
       # @return [Array<Object>]
       def receive(*args)
-        wait(:available_messages)
-        current_messages
+        new_message = wait(:new_messages)
+        begin
+          new_message = MultiJson.load(new_message)
+          new_message.respond_to?(:to_smash) ? new_message.to_smash : new_message
+        rescue MultiJson::ParseError
+          new_message
+        end
       end
 
       # Send messages
@@ -29,26 +35,14 @@ module Carnivore
       #   is made to "remote" source instead of self (jackal hack)
       def transmit(payload, *args)
         if(arguments[:remote_name])
-          Carnivore::Supervisor.supervisor[arguments[:remote_name]].transmit(payload)
+          Carnivore::Supervisor.supervisor[arguments[:remote_name]].async.transmit(payload)
           true
         else
-          @messages << MultiJson.dump(payload)
-          signal(:available_messages)
+          signal(:new_message, MultiJson.dump(payload))
           true
         end
       end
 
-      # Get current messages and clear store
-      #
-      # @return [Array<Object>]
-      def current_messages
-        msgs = @messages.dup
-        @messages.clear
-        msgs.map do |s|
-          s = MultiJson.load(s)
-          s.respond_to?(:to_smash) ? s.to_smash : s
-        end
-      end
     end
   end
 end
