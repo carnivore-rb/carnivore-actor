@@ -18,7 +18,7 @@ module Carnivore
       #
       # @return [Array<Object>]
       def receive(*args)
-        new_message = wait(:new_messages)
+        new_message = wait(:new_message)
         begin
           new_message = MultiJson.load(new_message)
           new_message.respond_to?(:to_smash) ? new_message.to_smash : new_message
